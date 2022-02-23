@@ -17,4 +17,4 @@ ADD=$((2+3))
 echo ADD = ${ADD}
 
 echo user=${USER}
-echo $A
+echo A=$A
