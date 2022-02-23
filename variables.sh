@@ -23,4 +23,4 @@ echo A=$A
 read -p "enter your name :" username
 read -p "enter your age :" age
 
-echo "username is : ${username} age is ${age}"
+echo "username is :${username} age is :${age}"
