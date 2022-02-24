@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source components/
+#source components/
 
 USER_UID=$(id -u)
 if [ "${USER_UID}" -ne 0 ]; then
@@ -19,4 +19,6 @@ if [ ! -e components/${COMPONENT}.sh ]; then
   exit
 fi
 
-bash components/${COMPONENT}.sh
+path=components/${COMPONENT}.sh
+
+bash ${path}
