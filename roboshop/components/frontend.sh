@@ -4,7 +4,7 @@ source components/commons.sh
 
 echo "Frontend Setup"
 yum install nginx -y &>>LOG_FILE
-STAT_CHECK &? "Nginx Installation"
+STAT_CHECK $? "Nginx Installation"
 #
 #echo "Enable Nginx"
 #
