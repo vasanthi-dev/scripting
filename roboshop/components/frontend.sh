@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Frontend Setup"
+source components/common.sh
 
+echo "Frontend Setup"
 yum install nginx -y &>>LOG_FILE
 STAT_CHECK &? "Nginx Installation"
 #
