@@ -2,9 +2,8 @@
 
 echo "Frontend Setup"
 
-#echo "Installing Nginx"
-#
-#yum install nginx -y
+yum install nginx -y &>>LOG_FILE
+STAT_CHECK &? "Nginx Installation"
 #
 #echo "Enable Nginx"
 #
