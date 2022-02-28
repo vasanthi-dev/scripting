@@ -23,9 +23,9 @@ STAT_CHECK() {
 set-hostname -skip-apply ${COMPONENT}
 
 DOWNLOAD() {
-  curl -s -o /tmp "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>{LOG_FILE}
+  curl -s -o /tmp "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
   STAT_CHECK $? "Download ${COMPONENT} Code"
-  unzip -o -d /tmp /tmp/${COMPONENT}.zip &>>{LOG_FILE}
+  unzip -o -d /tmp /tmp/${COMPONENT}.zip &>>${LOG_FILE}
   STAT_CHECK $? "Extract ${COMPONENT} Code"
 }
 
