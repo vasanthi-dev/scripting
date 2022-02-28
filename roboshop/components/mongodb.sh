@@ -1,21 +1,21 @@
 #!/bin/bash
 
 source components/common.sh
-echo "Mongodb Setup"
+echo "\e[1mMongodb Installation\e[0m"
 
-echo "Downloading Mongodb Repo"
+echo "\e[1mDownloading Mongodb Repo\e[0m"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo &>>{LOG_FILE}
 STAT_CHECK $? "Downloading Mongodb Repo"
 
-echo "Installing Mongodb"
+echo "\e[1mInstalling Mongodb\e[0m"
 yum install mongodb-org -y &>>{LOG_FILE}
 STAT_CHECK $? "Installing Mongodb"
 
-echo "Update Mongodb Service"
+echo "\e[1mUpdate Mongodb Service\e[0m"
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>{LOG_FILE}
 STAT_CHECK $? "Update Mongodb Service"
 
-echo "Service Enable And Start"
+echo "\e[1mService Enable And Start\e[0m"
 systemctl enable mongod &>LOG_FILE && systemctl start mongod &>>{LOG_FILE}
 STAT_CHECK $? "Service Enable And Start"
 
