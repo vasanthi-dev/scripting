@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source components/common.sh
-MAX_LENGTH=$( cat $0 |grep STAT_CHECK |grep -v cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
+MAX_LENGTH=$( cat ${0} components/common.sh |grep STAT_CHECK |grep -v -W cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
 echo "\e[1mMongodb Installation\e[0m"
 
 echo "\e[1mDownloading Mongodb Repo\e[0m"
