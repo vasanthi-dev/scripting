@@ -2,6 +2,8 @@
 
 source components/common.sh
 
+MAX_LENGTH=$( cat $0 |grep STAT_CHECK |grep -v cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
+
 echo "\e[1mFrontend Installation\e[0m"
 echo "\e[1mNginx Installation\e[0m"
 yum install nginx -y &>>{LOG_FILE}

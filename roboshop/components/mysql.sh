@@ -1,7 +1,7 @@
 #!/bin/bash
-
+source components/common.sh
 echo "\e[1mMysql Setup\e[0m"
-
+MAX_LENGTH=$( cat $0 |grep STAT_CHECK |grep -v cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
 #etup MySQL Repo
 ## curl -s -L -o /etc/yum.repos.d/mysql.repo https://raw.githubusercontent.com/roboshop-devops-project/mysql/main/mysql.repo
 #
