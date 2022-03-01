@@ -39,12 +39,12 @@ SYSTEMD_SETUP() {
            -e 's/DBHOST/mysql.roboshop.internal/' \
            -e 's/CARTHOST/cart.roboshop.internal/'\
            -e 's/USERHOST/user.roboshop.internal/'\
-           -e 's/AMQPHOST/rabbitmq.roboshop.internal/'
-           /home/roboshop/${component}/systemd.service && mv /home/roboshop/${component}/systemd.service /etc/systemd/system/${component}.service &>>${LOG_FILE}
+           -e 's/AMQPHOST/rabbitmq.roboshop.internal/'\
+           -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/' /home/roboshop/${component}/systemd.service && mv /home/roboshop/${component}/systemd.service /etc/systemd/system/${component}.service &>>${LOG_FILE}
     STAT_CHECK $? "Updated DNSNAME in SystemD"
 
   echo "\e[1mService Enable And Start\e[0m"
-  systemctl daemon-reload &>>${LOG_FILE} && systemctl enable ${component} &>>${LOG_FILE} && systemctl start ${component} &>>${LOG_FILE}
+  systemctl daemon-reload &>>${LOG_FILE} && systemctl restart ${component} &>>${LOG_FILE} && systemctl enable ${component} &>>${LOG_FILE}
   STAT_CHECK $? "Start ${component} Service"
 
 }
@@ -118,7 +118,7 @@ component=${1}
   yum install golang -y &>>{LOG_FILE}
   STAT_CHECK $? "Installing Golang"
   APP_USER_SETUP
-  cd /home/roboshop/${component}  && go mod init dispatch &>>{LOG_FILE} && go get && go build
+  cd /home/roboshop/${component}  && go mod init dispatch &>>{LOG_FILE} && go get &>>{LOG_FILE} && go build &>>{LOG_FILE}
   STAT_CHECK $? "Install Golang Dependencies & Compile"
   SYSTEMD_SETUP
 }
