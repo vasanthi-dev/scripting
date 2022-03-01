@@ -1,7 +1,7 @@
 #!/bin/bash
 source components/common.sh
 echo "\e[1mRabbitmq Installation\e[0m"
-MAX_LENGTH=$( cat ${0} components/common.sh |grep STAT_CHECK |grep -v -W cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
+#MAX_LENGTH=$( cat ${0} components/common.sh |grep STAT_CHECK |grep -v -W cat |awk -F '"' '{print$2}' |awk '{print length}' |sort |tail -1 )
 
 echo "\e[1mInstalling Erlang\e[0m"
 yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm -y  &>>${LOG_FILE}
