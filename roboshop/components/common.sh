@@ -73,6 +73,7 @@ DOWNLOAD ${component}
 NODEJS() {
   # session 18 last to\
   component=${1}
+  curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
   yum install nodejs make gcc-c++ -y &>>${LOG_FILE}
   STAT_CHECK $? "Install nodejs"
 
