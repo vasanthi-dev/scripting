@@ -10,7 +10,7 @@ yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erl
 STAT_CHECK $? "Install Erlang & RabbitMQ"
 
 echo "check Application user"
-rabbitmqctl list_user | grep roboshop &>>${LOG_FILE}
+rabbitmqctl list_users | grep roboshop &>>${LOG_FILE}
 if [ $? -ne 0 ]; then
   rabbitmqctl add_user roboshop roboshop123
   STAT_CHECK $? "Create Application user in RabbitMQ"
