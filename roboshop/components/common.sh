@@ -67,7 +67,7 @@ APP_USER_SETUP(){
     useradd roboshop &>>${LOG_FILE}
     STAT_CHECK $? "Add Application User"
     fi
-Download ${component}
+DOWNLOAD ${component}
 }
 
 NODEJS() {
@@ -82,13 +82,7 @@ NODEJS() {
   STAT_CHECK $? "Install NodeJs Dependencies"
 
   SYSTEMD_SETUP
-
-#  echo "\e[1mService Enable And Start\e[0m"
-#  systemctl daemon-reload &>>${LOG_FILE} && systemctl enable ${1} &>>${LOG_FILE} && systemctl start ${1} &>>${LOG_FILE}
-#  STAT_CHECK $? "Start ${1} Service"
-
 }
-
 
 JAVA() {
   component=${1}
