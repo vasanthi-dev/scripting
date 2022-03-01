@@ -106,12 +106,23 @@ JAVA() {
 python() {
 component=${1}
   yum install python36 gcc python3-devel -y &>>{LOG_FILE}
-  STAT_CHECK $? "Install Python"
+  STAT_CHECK $? "Installing Python"
   APP_USER_SETUP
   cd /home/roboshop/${component}  && pip3 install -r requirements.txt &>>{LOG_FILE}
-  STAT_CHECK $? ""
+  STAT_CHECK $? "Install Python Dependencies"
   SYSTEMD_SETUP
 }
+
+GOLANG() {
+component=${1}
+  yum install golang -y &>>{LOG_FILE}
+  STAT_CHECK $? "Installing Golang"
+  APP_USER_SETUP
+  cd /home/roboshop/${component}  && go mod init dispatch &>>{LOG_FILE} && go get && go build
+  STAT_CHECK $? "Install Golang Dependencies & Compile"
+  SYSTEMD_SETUP
+}
+
 
 
 
