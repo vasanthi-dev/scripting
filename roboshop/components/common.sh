@@ -99,7 +99,7 @@ JAVA() {
 
 }
 
-python() {
+PYTHON() {
 component=${1}
   yum install python36 gcc python3-devel -y &>>{LOG_FILE}
   STAT_CHECK $? "Installing Python"
