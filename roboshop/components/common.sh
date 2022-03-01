@@ -31,9 +31,9 @@ set-hostname -skip-apply ${COMPONENT}
 SYSTEMD_SETUP() {
 
   chown roboshop:roboshop -R /home/roboshop
-    sed -i -e 's/MONGO_DNSNAME/mongo.roboshop.internal/' \
+    sed -i -e 's/MONGO_DNSNAME/mongod.roboshop.internal/' \
            -e 'S/REDIS_ENDPOINT/redis.roboshop.internal/' \
-           -e 's/MONGO_DNSNAME/mongo.roboshop.internal/'  \
+           -e 's/MONGO_DNSNAME/mongod.roboshop.internal/'  \
            -e 'S/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/'\
            -e 's/CARTENDPOINT/cart.roboshop.internal/'\
            -e 's/DBHOST/mysql.roboshop.internal/' \
@@ -50,14 +50,16 @@ SYSTEMD_SETUP() {
 }
 
 DOWNLOAD() {
-  curl -s -o /tmp "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
-  STAT_CHECK $? "Download ${COMPONENT} Code"
-  unzip -o -d /tmp /tmp/${COMPONENT}.zip &>>${LOG_FILE}
-  STAT_CHECK $? "Extract ${COMPONENT} Code"
+  curl -s -o /tmp "https://github.com/roboshop-devops-project/${1}/archive/main.zip" &>>${LOG_FILE}
+  STAT_CHECK $? "Download ${1} Code"
+  unzip -o -d /tmp /tmp/${1}.zip &>>${LOG_FILE}
+  STAT_CHECK $? "Extract ${1} Code"
+  if [ ! -z "${component}" ]; then
   mv /tmp/${component}-main/* /home/roboshop/${component}
   STAT_CHECK $? "Move ${component} Content"
   #rm -rf /home/robosho/${1} && mkdir -p /home/roboshop/${1} && cp -r /tmp/${1}-main/* /home/roboshop/${component} &>>{LOG_FILE}
   #STAT_CHECK $? "Move ${1} Content"
+  fi
 }
 
 APP_USER_SETUP(){
