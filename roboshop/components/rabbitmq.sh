@@ -9,7 +9,7 @@ STAT_CHECK $? "Download RabbitMQ Repo"
 yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm rabbitmq-server -y &>>${LOG_FILE}
 STAT_CHECK $? "Install Erlang & RabbitMQ"
 
-echo"check Application user"
+echo "check Application user"
 rabbitmqctl list_user | grep roboshop &>>${LOG_FILE}
 if [ $? -ne 0 ]; then
   rabbitmqctl add_user roboshop roboshop123
