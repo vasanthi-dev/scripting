@@ -43,7 +43,7 @@ SYSTEMD_SETUP() {
            -e 's/RABBITMQ-IP/rabbitmq.roboshop.internal/' /home/roboshop/${component}/systemd.service && mv /home/roboshop/${component}/systemd.service /etc/systemd/system/${component}.service &>>${LOG_FILE}
     STAT_CHECK $? "Updated DNSNAME in SystemD"
 
-  echo "\e[1mService Enable And Start\e[0m"
+  echo -e "\e[1mService Enable And Start\e[0m"
   systemctl daemon-reload &>>${LOG_FILE} && systemctl restart ${component} &>>${LOG_FILE} && systemctl enable ${component} &>>${LOG_FILE}
   STAT_CHECK $? "Start ${component} Service"
 
