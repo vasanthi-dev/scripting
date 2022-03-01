@@ -50,16 +50,15 @@ SYSTEMD_SETUP() {
 }
 
 DOWNLOAD() {
-  curl -s -o /tmp/${1}.zip "https://github.com/roboshop-devops-project/${1}/archive/main.zip" &>>${LOG_FILE}
-  STAT_CHECK $? "Download ${1} Code"
-  unzip -o /tmp/${1}.zip &>>${LOG_FILE}
-  STAT_CHECK $? "Extract ${1} Code"
-  if [ ! -z "${component}" ]; then
-  mv /tmp/${component}-main/* /home/roboshop/${component}
-  STAT_CHECK $? "Move ${component} Content"
-  #rm -rf /home/robosho/${1} && mkdir -p /home/roboshop/${1} && cp -r /tmp/${1}-main/* /home/roboshop/${component} &>>{LOG_FILE}
-  #STAT_CHECK $? "Move ${1} Content"
-  fi
+ curl -s -L -o /tmp/${1}.zip "https://github.com/roboshop-devops-project/${1}/archive/main.zip" &>>${LOG_FILE}
+   STAT_CHECK $? "Download ${1} Code"
+   cd /tmp
+   unzip -o /tmp/${1}.zip &>>${LOG_FILE}
+   STAT_CHECK $? "Extract ${1} Code"
+   if [ ! -z "${component}" ]; then
+     rm -rf /home/roboshop/${component} && mkdir -p /home/roboshop/${component} && cp -r /tmp/${component}-main/* /home/roboshop/${component} &>>${LOG_FILE}
+     STAT_CHECK $? "Copy ${component} Content"
+   fi
 }
 
 APP_USER_SETUP(){
