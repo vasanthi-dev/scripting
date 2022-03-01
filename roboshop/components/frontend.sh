@@ -10,9 +10,9 @@ yum install nginx -y &>>${LOG_FILE}
 STAT_CHECK $? "Nginx Installation"
 
 echo -e "\e[1mDownload the frontend Content\e[0m"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>${LOG_FILE}
-STAT_CHECK $? "Download frontend Content"
-#DOWNLOAD ${COMPONENT}
+#curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>${LOG_FILE}
+#STAT_CHECK $? "Download frontend Content"
+DOWNLOAD frontend
 
 echo -e "\e[1mRemove All Files\e[0m"
 rm -rf /usr/share/nginx/html/* &>>${LOG_FILE}
