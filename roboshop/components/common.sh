@@ -52,7 +52,7 @@ SYSTEMD_SETUP() {
 DOWNLOAD() {
   curl -s -o /tmp/${1}.zip "https://github.com/roboshop-devops-project/${1}/archive/main.zip" &>>${LOG_FILE}
   STAT_CHECK $? "Download ${1} Code"
-  unzip -o -d /tmp /tmp/${1}.zip &>>${LOG_FILE}
+  unzip -o -d /tmp/${1}.zip /tmp/${1}.zip &>>${LOG_FILE}
   STAT_CHECK $? "Extract ${1} Code"
   if [ ! -z "${component}" ]; then
   mv /tmp/${component}-main/* /home/roboshop/${component}
