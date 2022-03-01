@@ -33,11 +33,11 @@ sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
        -e '/catalogue/ s/localhost/catalogue.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
        STAT_CHECK $? "Update Nginx Configuration File"
 
+echo -e "\e[1mStart Nginx\e[0m"
+systemctl restart nginx &>>${LOG_FILE}
+STAT_CHECK $? "Start Nginx"
+
 echo -e "\e[1mEnable Nginx\e[0m"
 systemctl enable nginx &>>${LOG_FILE}
 STAT_CHECK $? "Enable Nginx"
-
-echo -e "\e[1mStart Nginx\e[0m"
-systemctl start nginx &>>${LOG_FILE}
-STAT_CHECK $? "Start Nginx"
 
