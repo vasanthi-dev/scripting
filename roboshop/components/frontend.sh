@@ -26,6 +26,13 @@ echo "\e[1mCopy Roboshop Configuration File\e[0m"
 cp /tmp/frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>${LOG_FILE}
 STAT_CHECK $? "Copy Roboshop Configuration File"
 
+sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
+       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
+       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
+       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
+       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+       STAT_CHECK $? "Update Nginx Configuration File"
+
 echo "\e[1mEnable Nginx\e[0m"
 systemctl enable nginx &>>${LOG_FILE}
 STAT_CHECK $? "Enable Nginx"
