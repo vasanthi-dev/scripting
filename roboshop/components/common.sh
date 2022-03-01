@@ -32,7 +32,7 @@ SYSTEMD_SETUP() {
 
   chown roboshop:roboshop -R /home/roboshop
     sed -i -e 's/MONGO_DNSNAME/mongod.roboshop.internal/' \
-           -e 'S/REDIS_ENDPOINT/redis.roboshop.internal/' \
+           -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
            -e 's/MONGO_DNSNAME/mongod.roboshop.internal/'  \
            -e 'S/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/'\
            -e 's/CARTENDPOINT/cart.roboshop.internal/'\
