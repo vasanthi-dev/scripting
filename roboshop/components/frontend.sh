@@ -27,10 +27,10 @@ cp /tmp/frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>${LOG
 STAT_CHECK $? "Copy Roboshop Configuration File"
 
 sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
-       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
-       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
-       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/'\
-       -e '/catalogue/ s/localhost/catalogue.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+       -e '/user/ s/localhost/user.roboshop.internal/'\
+       -e '/cart/ s/localhost/cart.roboshop.internal/'\
+       -e '/shipping/ s/localhost/shipping.roboshop.internal/'\
+       -e '/payment/ s/localhost/payment.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
        STAT_CHECK $? "Update Nginx Configuration File"
 
 echo -e "\e[1mStart Nginx\e[0m"
