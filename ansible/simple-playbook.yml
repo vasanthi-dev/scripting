@@ -1,0 +1,41 @@
+- name: Demo on simple playbook
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: Hello From Playbook Play
+
+
+# Variables
+
+- name: Play Level Variables
+  hosts: all
+  vars:
+    URL: play.example.com
+  tasks:
+    - name: print a value
+      ansible.builtin.debug:
+        msg: URL is - {{URL}}
+
+- name: File Level Variables
+  hosts: all
+  vars_files:
+    - sample-vars.yml
+  tasks:
+    - name: print a value
+      ansible.builtin.debug:
+        msg: URL is - {{URL}}
+
+- name: Task Level Variables
+  hosts: all
+  tasks:
+    - name: print a value
+      vars:
+        URL: tasks.example.com
+      ansible.builtin.debug:
+        msg: URL is - {{URL}}
+    - name: print task2  a value
+      vars:
+        URL: tasks2.example.com
+      ansible.builtin.debug:
+        msg: URL is - {{URL}}

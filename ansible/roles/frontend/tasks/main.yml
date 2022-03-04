@@ -1,0 +1,6 @@
+- name: Install Nginx
+  hosts: FRONTEND
+  tasks:
+    ansible.builtin.yum:
+      name: nginx
+      state: present
