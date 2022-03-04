@@ -1,5 +1,5 @@
 {
-  "ImageId": "ami-0b90346fbb8e13c09",
-  "SecurityGroupIds": [ "sg-063955a8614218645" ],
-  "InstanceType": "t3.micro"
+  "LaunchTemplateId": "lt-099eb0b79a90eeba3",
+  "LaunchTemplateName": "my-spot-req",
+  "Version": "8"
 }
