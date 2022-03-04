@@ -10,4 +10,4 @@ TEMP_VER=8
 
 
 
-aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},LaunchTemplateName=${TEMP_NAME},Version=${TEMP_VER} |jq
+aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} |jq
