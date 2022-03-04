@@ -4,5 +4,10 @@
 
 #aws ec2 run-instances --launch-specification file://spot.json |jq
 
+TEMP_ID="lt-099eb0b79a90eeba3"
+TEMP_NAME="my-spot-req"
+TEMP_VER=8
 
-aws ec2 run-instances --launch-template LaunchTemplateId="lt-099eb0b79a90eeba3",LaunchTemplateName="my-spot-req",Version="8" |jq
+
+
+aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},LaunchTemplateName=${TEMP_NAME},Version=${TEMP_VER} |jq
