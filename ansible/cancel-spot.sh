@@ -9,7 +9,7 @@
 
   echo "${SPOT_INSTANCE_ID}"
 
-  aws ec2 cancel-spot-instance-requests --spot-instance-request-ids ${SPOT_INSTANCE_ID}
+  aws ec2 cancel-spot-instance-requests --spot-instance-request-ids "${SPOT_INSTANCE_ID}"
 
   done
 
