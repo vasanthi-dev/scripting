@@ -39,6 +39,7 @@ CREATE_INSTANCE(){
    else
      #create instance from launch template
      aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
+     sleep 10
     fi
 # update dns record
   IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
