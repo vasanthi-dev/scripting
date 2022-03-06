@@ -42,7 +42,7 @@ echo "${IPADDRESS}"
 #otherway to eleminate Double quotes
 # IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null | sed 's/"//g')
 
-sed -e 's/IPADDRESS/${IPADDRESS}/' -e 's/COMPONENT/${COMPONENT}.roboshop.internal/' dnsrecord.json >/tmp/record.json
+sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}.roboshop.internal/" dnsrecord.json >/tmp/record.json
 
 cat /tmp/record.json
 
