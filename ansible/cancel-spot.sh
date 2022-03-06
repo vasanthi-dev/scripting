@@ -5,7 +5,7 @@
 
 STATUS="active"
   for comp in test1 test2 ; do
-  SPOT_INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=${comp} Name=state Values=${STATUS}" |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs)
+  SPOT_INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${comp} Name=state Values=${STATUS} |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs)
 
   echo "${SPOT_INSTANCE_ID}"
 
@@ -19,3 +19,10 @@ STATUS="active"
 #
 #
 #aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=test1" |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs
+
+#aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=test1 Name=state,Values=active" |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs
+#
+#
+#aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=test1 Name=state,Values=active |jq ".SpotInstanceRequests[].SpotInstanceRequestId"
+#
+#aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=test1 Name=state,Values=active |jq ".SpotInstanceRequests[].SpotInstanceRequestId"|xargs
