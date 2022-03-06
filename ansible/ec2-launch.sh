@@ -31,13 +31,11 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq .R
 
 if [ $? -eq -0 ]; then
   echo -e "\e[1;33mInstance already exist\e[0m"
-  exit
+ else
+   aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
   fi
 
-aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
-
-
-IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" |xargs)
+IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
 
 #otherway to eleminate Double quotes
 # IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" | sed 's/"//g')
