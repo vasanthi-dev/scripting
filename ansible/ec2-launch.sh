@@ -35,10 +35,10 @@ if [ $? -eq -0 ]; then
    aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
   fi
 
-IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
+IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
 
 #otherway to eleminate Double quotes
-# IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" | sed 's/"//g')
+# IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null | sed 's/"//g')
 
 sed -e 's/IPADDRESS/${IPADDRESS}/' -e 's/COMPONENT/${COMPONENT}/' dnsrecord.json >/tmp/record.json
 
