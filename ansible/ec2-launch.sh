@@ -13,6 +13,9 @@
 #
 # COUNT=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=workstation" | jq ".Reservations[].Instances[].PrivateIpAddress" | grep -v null | wc -l)
 
+ #otherway to GET IPADDRESS AND eleminate Double quotes
+  # IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null | sed 's/"//g')
+
 
 
 TEMP_ID="lt-099eb0b79a90eeba3"
@@ -27,27 +30,31 @@ if [ -z "$1" ]; then
 
 COMPONENT=$1
 
-aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq .Reservations[].Instances[].State.Name |sed 's/"//g' | grep -E 'running|stopped' &>/dev/null
+CREATE_INSTANCE(){
+  #checking instance exists or not
+  aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq .Reservations[].Instances[].State.Name |sed 's/"//g' | grep -E 'running|stopped' &>/dev/null
 
-if [ $? -eq -0 ]; then
-  echo -e "\e[1;33mInstance already exist\e[0m"
- else
-   aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
+  if [ $? -eq -0 ]; then
+    echo -e "\e[1;33mInstance already exist\e[0m"
+   else
+     #create instance from launch template
+     aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]"  |jq
+    fi
+# update dns record
+  IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
+
+  sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}.roboshop.internal/" dnsrecord.json >/tmp/record.json
+  aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
+}
+
+if [ "${COMPONENT}" == "all" ]; then
+  for comp in frontend mongodb user ; do
+  COMPONENT=${comp}
+  CREATE_INSTANCE
+  done
+  else
+  CREATE_INSTANCE
   fi
-
-IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
-
-echo "${IPADDRESS}"
-
-#otherway to eleminate Double quotes
-# IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null | sed 's/"//g')
-
-sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}.roboshop.internal/" dnsrecord.json >/tmp/record.json
-
-cat /tmp/record.json
-
-aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
-
 
 
 
