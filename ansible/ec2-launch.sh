@@ -37,10 +37,14 @@ if [ $? -eq -0 ]; then
 
 IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null |xargs)
 
+echo "${IPADDRESS}"
+
 #otherway to eleminate Double quotes
 # IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq ".Reservations[].Instances[].PrivateIpAddress" |grep -v null | sed 's/"//g')
 
 sed -e 's/IPADDRESS/${IPADDRESS}/' -e 's/COMPONENT/${COMPONENT}/' dnsrecord.json >/tmp/record.json
+
+cat /tmp/record.json
 
 aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
 
