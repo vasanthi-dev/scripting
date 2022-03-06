@@ -9,5 +9,7 @@
 
   echo "${SPOT_INSTANCE_ID}"
 
+
+
   done
 

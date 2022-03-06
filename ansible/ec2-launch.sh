@@ -59,12 +59,12 @@ if [ "${COMPONENT}" == "all" ]; then
 
 
 
-aws ec2 cancel-spot-instance-requests --filters "Name=tag:Name,Values=test" | jq
-
---spot-instance-request-ids
-
-aws ec2 describe-spot-instance-requests --filters "Name=state,Values=active" | jq
-
-
-
-aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=${comp}" --query "SpotInstanceRequests[*].[InstanceId]"
+#aws ec2 cancel-spot-instance-requests --filters "Name=tag:Name,Values=test" | jq
+#
+#--spot-instance-request-ids
+#
+#aws ec2 describe-spot-instance-requests --filters "Name=state,Values=active" | jq
+#
+#
+#
+#aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=${comp}" --query "SpotInstanceRequests[*].[InstanceId]"
