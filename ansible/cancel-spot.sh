@@ -18,6 +18,8 @@ STATUS="active"
 #aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=test1" |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs
 
 #aws ec2 describe-spot-instance-requests --filters "Name=tag:Name,Values=test1 Name=state,Values=active" |jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs
+
+
 #
 #
 #aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=test1 Name=state,Values=active |jq ".SpotInstanceRequests[].SpotInstanceRequestId"
