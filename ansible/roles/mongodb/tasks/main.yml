@@ -1,10 +1,4 @@
-
-## cd mongodb-main
-## mongo < catalogue.js
-## mongo < users.js
-##
-
-#- name: Add repository
+ #- name: Add repository
 #  yum_repository:
 #    name: epel
 #    description: EPEL YUM repo
