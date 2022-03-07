@@ -1,0 +1,59 @@
+
+## cd mongodb-main
+## mongo < catalogue.js
+## mongo < users.js
+##
+
+#- name: Add repository
+#  yum_repository:
+#    name: epel
+#    description: EPEL YUM repo
+#    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+#
+#- name: Download mongod repo
+#  get_url:
+#    url: https://raw.githubusercontent.com/roboshop-devops-project/mongodb/main/mongo.repo
+#    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Copy mongodb repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install mongodb
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+- name: Replace a localhost entry with our own
+  ansible.builtin.lineinfile:
+    path: /etc/mongod.conf
+    regexp: '^127.0.0.1'
+    line: '0.0.0.0'
+
+#- name: Update MongoDB config file to listen on 0.0.0.0
+#  ansible.builtin.replace:
+#    path: /etc/mongod.conf
+#    regexp: '127.0.0.1'
+#    replace: '0.0.0.0'
+
+- name: Start mongodb
+  ansible.builtin.systemd:
+    name: mongod
+    state: restarted
+    enabled: yes
+
+- name: Download MongoDB Schema Files
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: download
+
+- name: Load Catalogue Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/catalogue.js"
+    idempotent: yes
+
+- name: Load User Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/users.js"
+    idempotent: yes
