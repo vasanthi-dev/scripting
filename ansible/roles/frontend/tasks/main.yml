@@ -18,13 +18,34 @@
 ## systemctl restart nginx
 
 - name: Install Nginx
-  tasks:
-    ansible.builtin.yum:
-      name: nginx
-      state: present
+  ansible.builtin.yum:
+    name: nginx
+    state: present
 
 - name: Download and Unzip the Frontend Content
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
     dest: /tmp
     remote_src: yes
+
+- name: Remove Old HTML Content
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Copy the Html Files
+  ansible.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html/
+    remote_src: yes
+
+- name: Copy roboshop reverse proxy configuration
+  ansible.builtin.copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Start Nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
