@@ -32,14 +32,14 @@
   tags: USER
   roles:
     - user
-#
-#- name: CART Setup
-#  hosts: CART
-#  become: yes
-#  tags: CART
-#  roles:
-#    - cart
-#
+
+- name: CART Setup
+  hosts: CART
+  become: yes
+  tags: CART
+  roles:
+    - cart
+
 #- name: MYSQL Setup
 #  hosts: MYSQL
 #  become: yes
