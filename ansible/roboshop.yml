@@ -12,12 +12,12 @@
   roles:
     - mongodb
 
-#- name: CATALOGUE Setup
-#  hosts: CATALOGUE
-#  become: yes
-#  tags: CATALOGUE
-#  roles:
-#    - catalogue
+- name: CATALOGUE Setup
+  hosts: CATALOGUE
+  become: yes
+  tags: CATALOGUE
+  roles:
+    - catalogue
 #
 #- name: REDIS Setup
 #  hosts: REDIS
