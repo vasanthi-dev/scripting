@@ -1,4 +1,4 @@
 - name: Import Nodejs For Catalogue
   ansible.builtin.import_role:
     name: common
-    tasks_from: catalogue
+    tasks_from: nodejs
