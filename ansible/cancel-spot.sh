@@ -1,7 +1,7 @@
 #!/bin/bash
-
+ENV=$1
 STATUS="active"
-  for comp in test1 test2 ; do
+  for comp in frontend$ENV mongodb$ENV user$ENV catalogue$ENV mysql$ENV redis$ENV cart$ENV shipping$ENV payment$ENV rabbitmq$ENV dispatch$ENV ; do
   SPOT_INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${comp} Name=state,Values=${STATUS}|jq ".SpotInstanceRequests[].SpotInstanceRequestId" |xargs)
   INSTANCE_ID=$(aws ec2 describe-spot-instance-requests --filters Name=tag:Name,Values=${comp} Name=state,Values=${STATUS}|jq ".SpotInstanceRequests[].InstanceId" |xargs)
   echo "${SPOT_INSTANCE_ID}"
