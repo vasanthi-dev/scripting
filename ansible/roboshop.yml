@@ -18,3 +18,52 @@
   tags: CATALOGUE
   roles:
     - catalogue
+
+- name: REDIS Setup
+  hosts: REDIS
+  become: yes
+  tags: REDIS
+  roles:
+    - redis
+
+- name: USER Setup
+  hosts: USER
+  become: yes
+  tags: USER
+  roles:
+    - user
+
+- name: CART Setup
+  hosts: CART
+  become: yes
+  tags: CART
+  roles:
+    - cart
+
+- name: MYSQL Setup
+  hosts: MYSQL
+  become: yes
+  tags: MYSQL
+  roles:
+    - mysql
+
+- name: SHIPPING Setup
+  hosts: SHIPPING
+  become: yes
+  tags: SHIPPING
+  roles:
+    - shipping
+
+- name: PAYMENT Setup
+  hosts: PAYMENT
+  become: yes
+  tags: PAYMENT
+  roles:
+    - payment
+
+- name: RABBITMQ Setup
+  hosts: RABBITMQ
+  become: yes
+  tags: RABBITMQ
+  roles:
+    - rabbitmq

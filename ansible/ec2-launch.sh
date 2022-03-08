@@ -31,7 +31,7 @@ if [ -z "$1" ]; then
 COMPONENT=$1
 ENV=$2
 
-if [ ! z "$ENV" ]; then
+if [ ! -z "$ENV" ]; then
   ENV="-${ENV}"
   fi
 
@@ -54,7 +54,7 @@ CREATE_INSTANCE(){
 }
 
 if [ "${COMPONENT}" == "all" ]; then
-  for comp in frontend$ENV mongodb$ENV user$ENV catalogue$ENV ; do
+  for comp in frontend$ENV mongodb$ENV user$ENV catalogue$ENV mysql$ENV redis$ENV cart$ENV shipping$ENV payment$ENV rabbitmq$ENV ; do
   COMPONENT=${comp}
   CREATE_INSTANCE
   done
