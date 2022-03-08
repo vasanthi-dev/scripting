@@ -8,17 +8,17 @@
     name: mongodb-org
     state: installed
 
-- name: Replace a localhost entry with our own
-  ansible.builtin.lineinfile:
-    path: /etc/mongod.conf
-    regexp: '^127.0.0.1'
-    line: '0.0.0.0'
-
-#- name: Update MongoDB config file to listen on 0.0.0.0
-#  ansible.builtin.replace:
+#- name: Replace a localhost entry with our own
+#  ansible.builtin.lineinfile:
 #    path: /etc/mongod.conf
-#    regexp: '127.0.0.1'
-#    replace: '0.0.0.0'
+#    regexp: '^127.0.0.1'
+#    line: '0.0.0.0'
+
+- name: Update MongoDB config file to listen on 0.0.0.0
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
 
 - name: Start mongodb
   ansible.builtin.systemd:
