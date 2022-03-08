@@ -18,14 +18,14 @@
   tags: CATALOGUE
   roles:
     - catalogue
-#
-#- name: REDIS Setup
-#  hosts: REDIS
-#  become: yes
-#  tags: REDIS
-#  roles:
-#    - redis
-#
+
+- name: REDIS Setup
+  hosts: REDIS
+  become: yes
+  tags: REDIS
+  roles:
+    - redis
+
 #- name: USER Setup
 #  hosts: USER
 #  become: yes
