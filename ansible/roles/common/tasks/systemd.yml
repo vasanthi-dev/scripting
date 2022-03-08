@@ -4,7 +4,7 @@
     dest: /etc/systemd/system/{{COMPONENT}}.service
 
 
- - name: Start {{COMPONENT}} Service
+ - name: Start "{{COMPONENT}}" Service
    ansible.builtin.systemd:
      name: "{{COMPONENT}}"
      state: restarted
