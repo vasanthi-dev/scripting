@@ -20,9 +20,10 @@
 
 #- name: Update Redis config file to listen on 0.0.0.0
 #  ansible.builtin.replace:
-#    path: etc/redis.conf /etc/redis/redis.conf
+#    path: /etc/redis/redis.conf
 #    regexp: '127.0.0.1'
 #    replace: '0.0.0.0'
+
 - name: Update Redis config file to listen on 0.0.0.0
   ansible.builtin.shell: sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf
   ignore_errors: true

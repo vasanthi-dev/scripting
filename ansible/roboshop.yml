@@ -26,12 +26,12 @@
   roles:
     - redis
 
-#- name: USER Setup
-#  hosts: USER
-#  become: yes
-#  tags: USER
-#  roles:
-#    - user
+- name: USER Setup
+  hosts: USER
+  become: yes
+  tags: USER
+  roles:
+    - user
 #
 #- name: CART Setup
 #  hosts: CART
