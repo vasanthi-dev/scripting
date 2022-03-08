@@ -1,0 +1,31 @@
+
+- name: Install Python Service
+  ansible.builtin.yum:
+    name:
+      - python36
+      - python3-devel
+      - gcc
+    state: installed
+
+- name: Application User Setup and Download App Files
+  import_tasks: app-user-setup.yml
+
+- name: Install Python Dependencies
+  ansible.builtin.pip:
+    requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
+    executable: pip3
+
+- name: Update UID in payment.ini file
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: '^uid'
+    line: uid = {{app_user_info.uid}}
+
+- name: Update GID in payment.ini file
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: '^gid'
+    line: gid = {{app_user_info.group}}
+
+- name: Update Configuration file and start the service
+  import_tasks: systemd.yml
