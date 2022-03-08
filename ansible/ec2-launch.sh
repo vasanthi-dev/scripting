@@ -29,6 +29,11 @@ if [ -z "$1" ]; then
   fi
 
 COMPONENT=$1
+ENV=$2
+
+if [ ! z "$ENV" ]; then
+  ENV="-${ENV}"
+  fi
 
 CREATE_INSTANCE(){
   #checking instance exists or not
@@ -49,11 +54,12 @@ CREATE_INSTANCE(){
 }
 
 if [ "${COMPONENT}" == "all" ]; then
-  for comp in frontend mongodb user ; do
+  for comp in frontend$ENV mongodb$ENV user$ENV catalogue$ENV ; do
   COMPONENT=${comp}
   CREATE_INSTANCE
   done
   else
+    COMPONENT=$COMPONENT$ENV
   CREATE_INSTANCE
   fi
 

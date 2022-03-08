@@ -42,7 +42,13 @@
     path: /home/roboshop/{{COMPONENT}}
   become_user: roboshop
 
- - name: Start Catalouge
+- name: Update Catalogue SystemD file
+  ansible.builtin.template:
+    src: systemd.service
+    dest: /etc/systemd/system/catalogue.service
+
+
+ - name: Start Catalouge Service
    ansible.builtin.systemd:
      name: Catalouge
      state: restarted
