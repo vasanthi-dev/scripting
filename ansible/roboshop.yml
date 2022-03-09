@@ -47,12 +47,12 @@
   roles:
     - mysql
 #
-#- name: SHIPPING Setup
-#  hosts: SHIPPING
-#  become: yes
-#  tags: SHIPPING
-#  roles:
-#    - shipping
+- name: SHIPPING Setup
+  hosts: SHIPPING
+  become: yes
+  tags: SHIPPING
+  roles:
+    - shipping
 #
 #- name: PAYMENT Setup
 #  hosts: PAYMENT
