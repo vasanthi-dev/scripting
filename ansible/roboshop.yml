@@ -61,12 +61,12 @@
 #  roles:
 #    - payment
 #
-#- name: RABBITMQ Setup
-#  hosts: RABBITMQ
-#  become: yes
-#  tags: RABBITMQ
-#  roles:
-#    - rabbitmq
+- name: RABBITMQ Setup
+  hosts: RABBITMQ
+  become: yes
+  tags: RABBITMQ
+  roles:
+    - rabbitmq
 #
 #- name: DISPATCH Setup
 #  hosts: DISPATCH
