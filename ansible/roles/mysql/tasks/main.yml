@@ -45,7 +45,7 @@
         dest: /tmp/root-pass-reset.sql
 
     - name: Change the Password
-      ansible.builtin.shell: mysql --connect-expired-password -uroot -p"${{MYSQL_DEFAULT_PASSWORD.stdout}}" </tmp/root-pass-reset.sql
+      ansible.builtin.shell: mysql --connect-expired-password -uroot -p"{{MYSQL_DEFAULT_PASSWORD.stdout}}" </tmp/root-pass-reset.sql
 
 #- name: Validate Password Plugin is there or not
 #  community.mysql.mysql_query:
