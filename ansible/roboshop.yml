@@ -54,12 +54,12 @@
   roles:
     - shipping
 #
-#- name: PAYMENT Setup
-#  hosts: PAYMENT
-#  become: yes
-#  tags: PAYMENT
-#  roles:
-#    - payment
+- name: PAYMENT Setup
+  hosts: PAYMENT
+  become: yes
+  tags: PAYMENT
+  roles:
+    - payment
 #
 - name: RABBITMQ Setup
   hosts: RABBITMQ
