@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent { label 'WORKSTATION' }
 
     stages {
         stage('ansible playbook run') {
             steps {
-                sh 'echo hello'
+                sh 'ansible-playbook simple-playbook.yml'
             }
         }
     }
