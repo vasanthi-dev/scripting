@@ -40,12 +40,12 @@
   roles:
     - cart
 
-#- name: MYSQL Setup
-#  hosts: MYSQL
-#  become: yes
-#  tags: MYSQL
-#  roles:
-#    - mysql
+- name: MYSQL Setup
+  hosts: MYSQL
+  become: yes
+  tags: MYSQL
+  roles:
+    - mysql
 #
 #- name: SHIPPING Setup
 #  hosts: SHIPPING
