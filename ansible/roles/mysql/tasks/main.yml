@@ -63,7 +63,7 @@
 
 
 - name: Check Validate Password Plugin
-  ansible.builtin.shell: echo 'show plugins;' |mysql -uroot -p"${{MYSQL_ROOT_PASSWORD}}" | grep validate_password
+  ansible.builtin.shell: echo 'show plugins;' |mysql -uroot -p"{{MYSQL_ROOT_PASSWORD}}" | grep validate_password
   ignore_errors: true
   register: out
 
