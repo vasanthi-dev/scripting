@@ -20,7 +20,7 @@
 
 TEMP_ID="lt-099eb0b79a90eeba3"
 TEMP_NAME="my-spot-req"
-TEMP_VER=8
+TEMP_VER=9
 ZONE_ID="Z01304753HAJF01BJ7NCL"
 
 if [ -z "$1" ]; then
